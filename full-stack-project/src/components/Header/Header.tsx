@@ -14,7 +14,7 @@ export const Header = () => {
           />
         </Grid>
         <Grid item>
-          <Typography variant="h2" component="h1">
+          <Typography variant="h3" component="h1">
             Make your life happier
           </Typography>
         </Grid>
@@ -24,9 +24,14 @@ export const Header = () => {
         display="flex"
         justifyContent="space-around"
         marginBottom={4}
+        marginLeft={10}
+        marginRight={10}
       >
-        <Link to="/" style={{ textDecoration: "none", fontSize: "large" }}>
-          Pets
+        <Link
+          to="/register"
+          style={{ textDecoration: "none", fontSize: "large" }}
+        >
+          Register
         </Link>
         <Link
           to="/medications"
