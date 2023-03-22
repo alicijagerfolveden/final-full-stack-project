@@ -6,7 +6,7 @@ export const LoginAdmin = () => {
       <Grid container justifyContent="center" marginTop={5} marginBottom={3}>
         <form>
           <Grid item marginBottom={2}>
-            <TextField label="Email" variant="outlined" type="email" />
+            <TextField label="Username" variant="outlined" />
           </Grid>
           <Grid item marginBottom={2}>
             <TextField label="Password" variant="outlined" type="password" />

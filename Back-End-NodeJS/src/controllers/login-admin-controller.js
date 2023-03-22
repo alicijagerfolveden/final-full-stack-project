@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { loginAdmin } from "../services/login-auth.js";
+import { loginAdmin } from "../services/login-admin.js";
 
-const loginRouter = Router();
+const loginAdminRouter = Router();
 
-loginRouter.post("/", loginAdmin);
+loginAdminRouter.post("/", loginAdmin);
 
-export default loginRouter;
+export default loginAdminRouter;

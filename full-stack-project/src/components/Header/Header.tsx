@@ -9,7 +9,7 @@ export const Header = () => {
           <Box
             component="img"
             sx={{ maxHeight: "200px" }}
-            src="https://de23-engine.flamingtext.com/netfu/tmp28000/coollogo_com-2970232.png"
+            src="https://i.pinimg.com/736x/a7/47/7f/a7477f5b51e89856d0694d4c02dcd506.jpg"
             alt="event logo"
           />
         </Grid>
@@ -19,7 +19,7 @@ export const Header = () => {
           </Typography>
         </Grid>
       </Grid>
-      <Box
+      {/* <Box
         component="nav"
         display="flex"
         justifyContent="space-around"
@@ -39,7 +39,7 @@ export const Header = () => {
         >
           Medications
         </Link>
-      </Box>
+      </Box> */}
     </Box>
   );
 };

@@ -2,25 +2,28 @@ import mysql from "mysql2/promise";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { jwtSecret, mysqlConfig } from "../../config.js";
-import { loginAdminSchema } from "../models/LoginAdmin.js";
+import { adminSchema } from "../models/Admin.js";
 
 export const loginAdmin = async (req, res) => {
   let userData = req.body;
 
   try {
-    userData = await loginUserSchema.validateAsync(userData);
+    userData = await adminSchema.validateAsync(userData);
   } catch (error) {
     console.log(error);
 
-    return res.status(400).send({ error: "Incorrect email or password" }).end();
+    return res
+      .status(400)
+      .send({ error: "Incorrect username or password" })
+      .end();
   }
 
   try {
     const con = await mysql.createConnection(mysqlConfig);
 
     const [data] = await con.execute(
-      `SELECT * FROM defaultdb.admin WHERE email = ${mysql.escape(
-        userData.email
+      `SELECT * FROM defaultdb.admin_users WHERE username = ${mysql.escape(
+        userData.username
       )}`
     );
 
@@ -29,7 +32,7 @@ export const loginAdmin = async (req, res) => {
     if (data.length === 0) {
       return res
         .status(400)
-        .send({ error: "Incorect email or password" })
+        .send({ error: "Incorect username or password" })
         .end();
     }
 
@@ -38,7 +41,7 @@ export const loginAdmin = async (req, res) => {
 
     if (isAuthed) {
       const token = jwt.sign(
-        { id: data[0].id, email: data[0].email },
+        { id: data[0].id, username: data[0].username },
         jwtSecret
       );
 
@@ -47,7 +50,10 @@ export const loginAdmin = async (req, res) => {
         .end();
     }
 
-    return res.status(400).send({ error: "Incorect email or password" }).end();
+    return res
+      .status(400)
+      .send({ error: "Incorect username or password" })
+      .end();
   } catch (error) {
     console.log(error);
 
