@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { RequireAuth } from "../AuthContext/RequireAuth";
 import { Events } from "../Events";
 import { EventUsers } from "../EventUsers";
 import { Footer } from "../Footer";
@@ -9,6 +10,7 @@ import { NotFoundPage } from "../NotFoundPage";
 import { Register } from "../Register";
 import { RegisteredUsers } from "../RegisteredUsers";
 import { Unauthorized } from "../Unauthorized";
+import { Layout } from "./Layout";
 
 export const MainRouter = () => {
   return (
@@ -17,14 +19,17 @@ export const MainRouter = () => {
         <Header />
 
         <Routes>
-          <Route path="/" element={<LoginAdmin />} />
-          <Route path="/unauthorized" element={<Unauthorized />} />
-
-          <Route path="/register" element={<Register />} />
-          <Route path="/users" element={<RegisteredUsers />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/events/:id" element={<EventUsers />} />
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path="/" element={<Layout />}>
+            <Route path="/login" element={<LoginAdmin />} />
+            <Route path="/unauthorized" element={<Unauthorized />} />
+            <Route element={<RequireAuth />}>
+              <Route path="/register" element={<Register />} />
+              <Route path="/users" element={<RegisteredUsers />} />
+              <Route path="/events" element={<Events />} />
+              <Route path="/events/:id" element={<EventUsers />} />
+            </Route>
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
         </Routes>
       </BrowserRouter>
       <Footer />

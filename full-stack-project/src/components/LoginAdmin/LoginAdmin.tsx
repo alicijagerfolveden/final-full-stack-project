@@ -1,10 +1,11 @@
 import { Box, Button, Grid, TextField } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../AuthContext/AuthContext";
 
 export const LoginAdmin = () => {
-  // const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useContext(AuthContext);
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errorMsg, setErrorMsg] = useState<string>("");
@@ -22,10 +23,12 @@ export const LoginAdmin = () => {
     axios
       .post("http://localhost:5000/login-admin", { username, password })
       .then((res) => {
-        localStorage.setItem("token", res.data.token);
+        const token = res.data.token;
+        setAuth(token);
         setUsername("");
         setPassword("");
         setSuccessMsg(true);
+        navigate("/register");
       })
       .catch((err) => {
         console.log(err);
@@ -34,12 +37,6 @@ export const LoginAdmin = () => {
         }
       });
   };
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     navigate("/register");
-  //   }, 2_000);
-  // }, [successMsg]);
 
   return (
     <Box>

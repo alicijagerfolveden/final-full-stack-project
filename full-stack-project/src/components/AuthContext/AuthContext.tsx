@@ -1,13 +1,4 @@
 import { createContext, useState } from "react";
+import { TAuthContext } from "./types";
 
-export const AuthContext = createContext({});
-
-export const AuthProvider = ({ children }: any) => {
-  const [auth, setAuth] = useState({});
-
-  return (
-    <AuthContext.Provider value={{ auth, setAuth }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
+export const AuthContext = createContext<TAuthContext>({} as TAuthContext);

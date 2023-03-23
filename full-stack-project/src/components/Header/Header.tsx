@@ -1,10 +1,18 @@
-import { Box, Typography, Grid } from "@mui/material";
+import { Box, Typography, Grid, Button } from "@mui/material";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../AuthContext/AuthContext";
 
 export const Header = () => {
+  const { auth, setAuth } = useContext(AuthContext);
+
+  const handleClick = () => {
+    setAuth("");
+  };
+
   return (
     <Box component="header">
-      <Grid container justifyContent="center" alignItems="center">
+      <Grid container justifyContent="space-around" alignItems="center">
         <Grid item>
           <Box
             component="img"
@@ -17,6 +25,13 @@ export const Header = () => {
           <Typography variant="h3" component="h1">
             Make your life happier
           </Typography>
+        </Grid>
+        <Grid item>
+          {auth ? (
+            <Button variant="outlined" color="secondary" onClick={handleClick}>
+              Sign out
+            </Button>
+          ) : null}
         </Grid>
       </Grid>
       <Box

@@ -22,8 +22,6 @@ export const Register = () => {
     return age;
   };
 
-  console.log(age);
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("submit");
