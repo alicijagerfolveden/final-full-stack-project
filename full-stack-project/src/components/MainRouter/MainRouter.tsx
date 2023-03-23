@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Events } from "../Events";
+import { EventUsers } from "../EventUsers";
 import { Footer } from "../Footer";
 import { Header } from "../Header";
 import { LoginAdmin } from "../LoginAdmin";
@@ -22,6 +23,7 @@ export const MainRouter = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/users" element={<RegisteredUsers />} />
           <Route path="/events" element={<Events />} />
+          <Route path="/events/:id" element={<EventUsers />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
