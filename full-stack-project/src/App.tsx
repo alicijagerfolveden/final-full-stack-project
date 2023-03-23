@@ -1,10 +1,13 @@
 import { MainRouter } from "./components";
+import { AuthProvider } from "./components/AuthContext/AuthContext";
 
 function App() {
   return (
-    <div>
-      <MainRouter />
-    </div>
+    <main>
+      <AuthProvider>
+        <MainRouter />
+      </AuthProvider>
+    </main>
   );
 }
 
