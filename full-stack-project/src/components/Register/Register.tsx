@@ -132,10 +132,11 @@ export const Register = () => {
               required
               sx={{ width: 300 }}
               variant="outlined"
-              value={birthdate?.toLocaleDateString() ?? ""}
-              InputProps={{
-                inputProps: { min: "1920-01-01", max: new Date() },
+              inputProps={{
+                min: "1900-01-01",
+                max: new Date().toISOString().split("T")[0],
               }}
+              value={birthdate?.toISOString().split("T")[0] ?? ""}
               onChange={(e) => {
                 setBirthdate(new Date(e.target.value));
                 ageCalc(new Date(e.target.value));
