@@ -25,6 +25,7 @@ export const LoginAdmin = () => {
       .then((res) => {
         const token = res.data.token;
         setAuth(token);
+        sessionStorage.setItem("token", token);
         setUsername("");
         setPassword("");
         setSuccessMsg(true);

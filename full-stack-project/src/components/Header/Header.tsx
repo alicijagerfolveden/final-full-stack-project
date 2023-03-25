@@ -8,10 +8,11 @@ export const Header = () => {
 
   const handleClick = () => {
     setAuth("");
+    localStorage.removeItem("token");
   };
 
   return (
-    <Box component="header">
+    <Box component="header" sx={{ backgroundColor: "beige" }}>
       <Grid container justifyContent="space-around" alignItems="center">
         <Grid item>
           <Box

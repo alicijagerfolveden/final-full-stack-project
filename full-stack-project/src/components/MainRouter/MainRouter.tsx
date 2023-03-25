@@ -9,7 +9,6 @@ import { LoginAdmin } from "../LoginAdmin";
 import { NotFoundPage } from "../NotFoundPage";
 import { Register } from "../Register";
 import { RegisteredUsers } from "../RegisteredUsers";
-import { Unauthorized } from "../Unauthorized";
 import { Layout } from "./Layout";
 
 export const MainRouter = () => {
@@ -21,7 +20,6 @@ export const MainRouter = () => {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/login" element={<LoginAdmin />} />
-            <Route path="/unauthorized" element={<Unauthorized />} />
             <Route element={<RequireAuth />}>
               <Route path="/register" element={<Register />} />
               <Route path="/users" element={<RegisteredUsers />} />
