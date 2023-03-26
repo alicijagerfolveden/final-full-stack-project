@@ -1,18 +1,24 @@
 import { Box, Typography, Grid, Button } from "@mui/material";
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthContext/AuthContext";
 
 export const Header = () => {
   const { auth, setAuth } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleSignOutClick = () => {
     setAuth("");
-    localStorage.removeItem("token");
+
+    sessionStorage.removeItem("token");
+  };
+
+  const handleSignInClick = () => {
+    navigate("/login");
   };
 
   return (
-    <Box component="header" sx={{ backgroundColor: "beige" }}>
+    <Box component="header" sx={{ borderBottom: "10px solid gray" }}>
       <Grid container justifyContent="space-around" alignItems="center">
         <Grid item>
           <Box
@@ -29,10 +35,22 @@ export const Header = () => {
         </Grid>
         <Grid item>
           {auth ? (
-            <Button variant="outlined" color="secondary" onClick={handleClick}>
+            <Button
+              variant="outlined"
+              color="secondary"
+              onClick={handleSignOutClick}
+            >
               Sign out
             </Button>
-          ) : null}
+          ) : (
+            <Button
+              variant="outlined"
+              color="secondary"
+              onClick={handleSignInClick}
+            >
+              Sign in
+            </Button>
+          )}
         </Grid>
       </Grid>
       <Box

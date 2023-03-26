@@ -1,12 +1,15 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getUsers } from "./getUsers";
 import { TUsers } from "./types";
 
 export const RegisteredUsers = () => {
   const [users, setUsers] = useState<TUsers[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getUsers(setUsers, setIsLoading);
@@ -26,6 +29,10 @@ export const RegisteredUsers = () => {
       .catch((error: any) => console.error(error));
   };
 
+  const handleUpdateButton = (id: number) => {
+    navigate(`/user/${id}`);
+  };
+
   return (
     <>
       <h1>List of Registered Users</h1>
@@ -42,6 +49,7 @@ export const RegisteredUsers = () => {
                   <th>Birthday</th>
                   <th>Event in</th>
                   <th>Delete</th>
+                  <th>Update</th>
                 </tr>
               </thead>
               <tbody>
@@ -58,6 +66,14 @@ export const RegisteredUsers = () => {
                           onClick={() => handleDeleteButton(user.id)}
                         >
                           Delete
+                        </Button>
+                      </td>
+                      <td>
+                        <Button
+                          color="secondary"
+                          onClick={() => handleUpdateButton(user.id)}
+                        >
+                          Update
                         </Button>
                       </td>
                     </tr>

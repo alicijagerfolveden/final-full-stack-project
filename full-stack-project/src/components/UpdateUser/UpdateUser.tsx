@@ -1,55 +1,64 @@
 import { Autocomplete, Box, Button, Grid, TextField } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-export const Register = () => {
+export const UpdateUser = () => {
   const [name, setName] = useState<string>("");
   const [surname, setSurname] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [birthdate, setBirthdate] = useState<Date | null>(new Date());
   const [age, setAge] = useState<number>(0);
+  const [user, setUser] = useState<string[]>([]);
   const [events, setEvents] = useState<string[]>([]);
   const [event_id, setEvent_id] = useState<number>(0);
-  const [selectedEventName, setSelectedEventName] = useState<string>("");
-  const [successMsg, setSuccessMsg] = useState<boolean>(false);
-  const [errorMsg, setErrorMsg] = useState<string>("");
   const eventName = events.map((event: any) => event.name);
+  const { id } = useParams();
 
-  const handleEventChange = (event: any, value: any) => {
-    const selectedEvent = events.find((event: any) => event.name === value);
+  //   const [usersEventName, setUsersEventName] = useState<string | undefined>("");
 
-    const getEventIdName = (value: any) => {
-      const eventId = value.id;
-      const eventName = value.name;
+  //   const getUsersEvent = (user: any) => {
+  //     const usersEvent = events.find(
+  //       (event: any) => event.id === user[0].event_id
+  //     );
 
-      setEvent_id(eventId);
-      setSelectedEventName(eventName);
-    };
+  //     const getEventName = (value: any) => {
+  //       return value.name;
+  //     };
 
-    getEventIdName(selectedEvent);
-  };
+  //     const usersEventName = getEventName(usersEvent);
 
-  const ageCalc = (date: Date) => {
-    const today = new Date();
-    const birthDate = new Date(date);
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const month = today.getMonth() - birthDate.getMonth();
+  //     if (usersEventName) {
+  //       setUsersEventName(usersEventName);
+  //     }
+  //   };
 
-    if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
-
-    setAge(age);
-
-    return age;
+  const setStateValues = (user: any) => {
+    setName(user[0].name);
+    setSurname(user[0].surname);
+    setEmail(user[0].email);
+    setBirthdate(user[0].birthdate.toLocaleString("en-US").split("T", 1));
+    // getUsersEvent(user);
   };
 
   useEffect(() => {
-    setErrorMsg("");
-    setSuccessMsg(false);
-  }, [name, surname, email, birthdate]);
+    axios
+      .get(`http://localhost:5000/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        const fetchedUser = res.data;
 
-  useEffect(() => {
+        setUser(fetchedUser);
+
+        setStateValues(fetchedUser);
+
+        ageCalc(fetchedUser[0].birthdate);
+      })
+      .catch((error) => console.error(error));
+
     axios
       .get("http://localhost:5000/events", {
         headers: {
@@ -63,18 +72,43 @@ export const Register = () => {
       .catch((error) => console.error(error));
   }, []);
 
+  const handleEventChange = (event: any, value: any) => {
+    const selectedEvent = events.find((event: any) => event.name === value);
+
+    const getEventId = (value: any) => {
+      return value.id;
+    };
+
+    const event_id = getEventId(selectedEvent);
+
+    if (event_id) {
+      setEvent_id(event_id);
+    }
+  };
+
+  const ageCalc = (date: Date) => {
+    const today = new Date();
+    const birthDate = new Date(date);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const month = today.getMonth() - birthDate.getMonth();
+    if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    setAge(age);
+    return age;
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     axios
-      .post(
-        "http://localhost:5000/users",
+      .patch(
+        `http://localhost:5000/users/${id}`,
         {
           name,
           surname,
           email,
           birthdate,
           event_id,
-          event_name: selectedEventName,
         },
         {
           headers: {
@@ -83,17 +117,15 @@ export const Register = () => {
         }
       )
       .then((res) => {
-        setSuccessMsg(true);
+        console.log(res);
       })
       .catch((err) => {
         console.log(err);
-        setErrorMsg("Register failed. Please check data provided");
       });
   };
 
   return (
     <Box>
-      {successMsg ? <p>User was registered to the event</p> : <p>{errorMsg}</p>}
       <Grid container justifyContent="center" marginTop={5} marginBottom={3}>
         <form onSubmit={handleSubmit}>
           <Grid item marginBottom={2}>
@@ -148,9 +180,9 @@ export const Register = () => {
               variant="outlined"
               inputProps={{
                 min: "1900-01-01",
-                max: new Date().toISOString().split("T")[0],
+                max: new Date().toLocaleString("en-US").split("T", 1),
               }}
-              value={birthdate?.toISOString().split("T")[0] ?? ""}
+              value={birthdate?.toLocaleString().split("T")[0] ?? ""}
               onChange={(e) => {
                 setBirthdate(new Date(e.target.value));
                 ageCalc(new Date(e.target.value));
@@ -175,7 +207,7 @@ export const Register = () => {
               type="submit"
               sx={{ width: 300, height: 50 }}
             >
-              Register
+              Update
             </Button>
           </Grid>
         </form>

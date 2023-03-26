@@ -7,10 +7,10 @@ import { TEvent, TEvents } from "./types";
 export const Events = () => {
   const [events, setEvents] = useState<TEvents[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const navigateToUsersAtEvent = useNavigate();
+  const navigate = useNavigate();
 
   const handleClick = (id: number) => {
-    navigateToUsersAtEvent(`/events/${id}`);
+    navigate(`/events/${id}`);
   };
 
   useEffect(() => {
@@ -23,6 +23,20 @@ export const Events = () => {
         <p>Loading...</p>
       ) : (
         <>
+          <Grid container justifyContent="space-around" alignItems="center">
+            <Typography variant="h3" textAlign="center" marginTop="50px">
+              Events
+            </Typography>
+            <Grid item>
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => navigate(`/add-event`)}
+              >
+                Add Event
+              </Button>
+            </Grid>
+          </Grid>
           <Grid
             container
             alignItems="center"
