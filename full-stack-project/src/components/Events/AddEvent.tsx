@@ -31,7 +31,7 @@ export const AddEvent = () => {
           },
         }
       )
-      .then((res) => {
+      .then(() => {
         setSuccessMsg(true);
       })
       .catch((err) => {

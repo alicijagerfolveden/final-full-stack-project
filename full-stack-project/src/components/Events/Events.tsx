@@ -6,7 +6,7 @@ import { TEvent, TEvents } from "./types";
 
 export const Events = () => {
   const [events, setEvents] = useState<TEvents[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   const handleClick = (id: number) => {
@@ -18,45 +18,46 @@ export const Events = () => {
   }, []);
 
   return (
-    <div>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <Box
-          sx={{
-            borderRadius: "10px",
-            border: "1px solid black",
-            width: "70%",
-            margin: "auto",
-          }}
-        >
-          <Grid
-            container
-            justifyContent="space-around"
-            marginTop="50px"
-            alignItems="center"
-            sx={{
-              backgroundColor: "rgb(191, 145, 235)",
-              width: "98%",
-              padding: "20px",
-              margin: "10px 10px",
-              borderRadius: "10px",
-              boxSizing: "border-box",
-            }}
+    <Box
+      sx={{
+        borderRadius: "10px",
+        border: "1px solid black",
+        width: "70%",
+        margin: "auto",
+      }}
+    >
+      <Grid
+        container
+        role="events-container"
+        justifyContent="space-around"
+        marginTop="50px"
+        alignItems="center"
+        sx={{
+          backgroundColor: "rgb(191, 145, 235)",
+          width: "98%",
+          padding: "20px",
+          margin: "10px 10px",
+          borderRadius: "10px",
+          boxSizing: "border-box",
+        }}
+      >
+        <Typography variant="h4" textAlign="center">
+          Events
+        </Typography>
+        <Grid item>
+          <Button
+            variant="contained"
+            color="success"
+            onClick={() => navigate(`/add-event`)}
           >
-            <Typography variant="h4" textAlign="center">
-              Events
-            </Typography>
-            <Grid item>
-              <Button
-                variant="contained"
-                color="success"
-                onClick={() => navigate(`/add-event`)}
-              >
-                Add Event
-              </Button>
-            </Grid>
-          </Grid>
+            Add Event
+          </Button>
+        </Grid>
+      </Grid>
+      {isLoading ? (
+        <h4 aria-label="loading-message">Loading...</h4>
+      ) : (
+        <Box>
           <Grid
             container
             alignItems="center"
@@ -98,6 +99,6 @@ export const Events = () => {
           })}
         </Box>
       )}
-    </div>
+    </Box>
   );
 };

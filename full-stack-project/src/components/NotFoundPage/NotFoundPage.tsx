@@ -9,7 +9,7 @@ export const NotFoundPage = () => {
     setTimeout(() => {
       navigate("/");
     }, 2_000);
-  }, []);
+  }, [navigate]);
 
   return (
     <Typography component="h2" fontWeight="bold">

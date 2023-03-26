@@ -15,10 +15,10 @@ import type { TUsers } from "../RegisteredUsers/types";
 
 export const EventUsers = () => {
   const [users, setUsers] = useState<TUsers[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const { id } = useParams();
 
-  const getEventUsers = (setData: any, setIsLoading: any) => {
+  useEffect(() => {
     axios
       .get(`http://localhost:5000/events/${id}`, {
         headers: {
@@ -26,19 +26,15 @@ export const EventUsers = () => {
         },
       })
       .then((res) => {
-        setData(res.data);
+        setUsers(res.data);
       })
       .catch((error) => console.error(error))
       .finally(() => {
         setTimeout(() => {
           setIsLoading(false);
-        }, 3_000);
+        }, 1_000);
       });
-  };
-
-  useEffect(() => {
-    getEventUsers(setUsers, setIsLoading);
-  }, []);
+  }, [id]);
 
   return (
     <Box
@@ -70,25 +66,36 @@ export const EventUsers = () => {
         marginBottom="50px"
         alignItems="center"
       >
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : (
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell sx={{ fontWeight: "bold" }}>Full Name</TableCell>
-                <TableCell sx={{ fontWeight: "bold" }}>Email</TableCell>
-                <TableCell sx={{ fontWeight: "bold" }}>Birthday</TableCell>
-              </TableRow>
-            </TableHead>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell sx={{ fontWeight: "bold" }}>Full Name</TableCell>
+              <TableCell sx={{ fontWeight: "bold" }}>Email</TableCell>
+              <TableCell sx={{ fontWeight: "bold" }}>Birthday</TableCell>
+            </TableRow>
+          </TableHead>
+          {isLoading ? (
             <TableBody>
-              {users.map((user: any) => {
+              <TableRow>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell role="loading-message" sx={{ fontWeight: "bold" }}>
+                  Loading...
+                </TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+            </TableBody>
+          ) : (
+            <TableBody>
+              {users.map((user: any, id: number) => {
                 return (
                   <TableRow
                     sx={{
                       "&:hover": { backgroundColor: "rgb(250, 245, 237)" },
                     }}
-                    key={user.id}
+                    key={id}
                   >
                     <TableCell>{`${user.name} ${user.surname}`}</TableCell>
                     <TableCell>{user.email}</TableCell>
@@ -97,8 +104,8 @@ export const EventUsers = () => {
                 );
               })}
             </TableBody>
-          </Table>
-        )}
+          )}
+        </Table>
       </Grid>
     </Box>
   );

@@ -46,7 +46,7 @@ export const UpdateUser = () => {
         ageCalc(fetchedUser[0].birthdate);
       })
       .catch((error) => console.error(error));
-  }, []);
+  }, [id]);
 
   const ageCalc = (date: Date) => {
     const today = new Date();

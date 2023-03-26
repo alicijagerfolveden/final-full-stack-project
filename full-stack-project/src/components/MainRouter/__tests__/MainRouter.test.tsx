@@ -12,4 +12,16 @@ describe("MainRouter", () => {
 
     expect(screen.getByText("Make your life happier")).toBeInTheDocument();
   });
+
+  it("should render Footer", () => {
+    render(
+      <BrowserRouter>
+        <MainRouter />
+      </BrowserRouter>
+    );
+
+    expect(
+      screen.getByText("Copyright © Register to events. All rights reserved.")
+    ).toBeInTheDocument();
+  });
 });

@@ -17,7 +17,7 @@ import { TUsers } from "./types";
 
 export const RegisteredUsers = () => {
   const [users, setUsers] = useState<TUsers[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -75,20 +75,31 @@ export const RegisteredUsers = () => {
         marginBottom="50px"
         alignItems="center"
       >
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : (
-          <Table>
-            <TableHead>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell sx={{ fontWeight: "bold" }}>Full Name</TableCell>
+              <TableCell sx={{ fontWeight: "bold" }}>Email</TableCell>
+              <TableCell sx={{ fontWeight: "bold" }}>Birthday</TableCell>
+              <TableCell sx={{ fontWeight: "bold" }}>Event in</TableCell>
+              <TableCell sx={{ fontWeight: "bold" }}>Delete</TableCell>
+              <TableCell sx={{ fontWeight: "bold" }}>Update</TableCell>
+            </TableRow>
+          </TableHead>
+          {isLoading ? (
+            <TableBody>
               <TableRow>
-                <TableCell sx={{ fontWeight: "bold" }}>Full Name</TableCell>
-                <TableCell sx={{ fontWeight: "bold" }}>Email</TableCell>
-                <TableCell sx={{ fontWeight: "bold" }}>Birthday</TableCell>
-                <TableCell sx={{ fontWeight: "bold" }}>Event in</TableCell>
-                <TableCell sx={{ fontWeight: "bold" }}>Delete</TableCell>
-                <TableCell sx={{ fontWeight: "bold" }}>Update</TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell role="loading-message" sx={{ fontWeight: "bold" }}>
+                  Loading...
+                </TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
               </TableRow>
-            </TableHead>
+            </TableBody>
+          ) : (
             <TableBody>
               {users.map((user: any) => {
                 return (
@@ -122,8 +133,8 @@ export const RegisteredUsers = () => {
                 );
               })}
             </TableBody>
-          </Table>
-        )}
+          )}
+        </Table>
       </Grid>
     </Box>
   );

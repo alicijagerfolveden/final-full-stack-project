@@ -14,6 +14,6 @@ export const getUsers = (setData: any, setIsLoading: any) => {
     .finally(() => {
       setTimeout(() => {
         setIsLoading(false);
-      }, 3_000);
+      }, 1_000);
     });
 };
