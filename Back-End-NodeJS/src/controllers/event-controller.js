@@ -3,7 +3,7 @@ import {
   createEvent,
   getEvents,
   getUsersByEventId,
-} from "../services/event-services.js";
+} from "../services/event-service.js";
 import { isLoggedIn } from "../services/token-middleware.js";
 
 const eventRouter = Router();

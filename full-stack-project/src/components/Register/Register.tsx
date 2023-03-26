@@ -62,7 +62,7 @@ export const Register = () => {
     axios
       .get("http://localhost:5000/events", {
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
         },
       })
       .then((res) => {
@@ -87,7 +87,7 @@ export const Register = () => {
         },
         {
           headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
           },
         }
       )
@@ -113,7 +113,7 @@ export const Register = () => {
         variant="h4"
         textAlign="center"
         sx={{
-          backgroundColor: "violet",
+          backgroundColor: "rgb(191, 145, 235)",
           width: "98%",
           margin: "10px 10px",
           padding: "10px",

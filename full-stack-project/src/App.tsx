@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { MainRouter } from "./components";
-import { AuthContext } from "./components/AuthContext/AuthContext";
+import { AuthContext } from "./components/AuthContext";
 
 function App() {
   const [auth, setAuth] = useState("" as string | null | undefined);
-  const token = sessionStorage.getItem("token");
+  const accessToken = sessionStorage.getItem("accessToken");
 
-  if (token && !auth) {
-    setAuth(token);
+  if (accessToken && !auth) {
+    setAuth(accessToken);
   }
 
   return (

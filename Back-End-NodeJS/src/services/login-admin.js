@@ -40,13 +40,13 @@ export const loginAdmin = async (req, res) => {
     const isAuthed = bcrypt.compareSync(userData.password, data[0].password);
 
     if (isAuthed) {
-      const token = jwt.sign(
+      const accessToken = jwt.sign(
         { id: data[0].id, username: data[0].username },
         jwtSecret
       );
 
       return res
-        .send({ message: "Succesfully logged in", token, userID })
+        .send({ message: "Succesfully logged in", accessToken, userID })
         .end();
     }
 

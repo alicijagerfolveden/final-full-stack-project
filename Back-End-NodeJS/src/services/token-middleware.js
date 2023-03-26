@@ -3,11 +3,11 @@ import { jwtSecret } from "../../config.js";
 
 export const isLoggedIn = (req, res, next) => {
   try {
-    const token = req.headers.authorization?.split(" ")[1];
+    const accessToken = req.headers.authorization?.split(" ")[1];
 
-    const user = jwt.verify(token, jwtSecret);
+    const user = jwt.verify(accessToken, jwtSecret);
 
-    if (!token || !user) {
+    if (!accessToken || !user) {
       return res.status(401).send({ error: "User unauthorised" }).end();
     }
 
@@ -15,6 +15,6 @@ export const isLoggedIn = (req, res, next) => {
   } catch (error) {
     console.log(error);
 
-    res.status(401).send({ error: "Invalid Token" }).end();
+    res.status(401).send({ error: "Invalid Access Token" }).end();
   }
 };

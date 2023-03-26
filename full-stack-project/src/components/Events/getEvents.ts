@@ -4,7 +4,7 @@ export const getEvents = (setData: any, setIsLoading: any) => {
   axios
     .get("http://localhost:5000/events", {
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
       },
     })
     .then((res) => {

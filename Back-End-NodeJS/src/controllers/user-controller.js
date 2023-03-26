@@ -6,7 +6,7 @@ import {
   getUsers,
   registerUser,
   updateUser,
-} from "../services/user-services.js";
+} from "../services/user-service.js";
 
 const userRouter = Router();
 

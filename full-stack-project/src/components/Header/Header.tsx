@@ -10,7 +10,7 @@ export const Header = () => {
   const handleSignOutClick = () => {
     setAuth("");
 
-    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("accessToken");
   };
 
   const handleSignInClick = () => {

@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Grid,
   Typography,
   Table,
@@ -23,7 +22,7 @@ export const EventUsers = () => {
     axios
       .get(`http://localhost:5000/events/${id}`, {
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
         },
       })
       .then((res) => {

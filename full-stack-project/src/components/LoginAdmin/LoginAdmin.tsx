@@ -21,9 +21,9 @@ export const LoginAdmin = () => {
     axios
       .post("http://localhost:5000/login-admin", { username, password })
       .then((res) => {
-        const token = res.data.token;
-        setAuth(token);
-        sessionStorage.setItem("token", token);
+        const accessToken = res.data.accessToken;
+        setAuth(accessToken);
+        sessionStorage.setItem("accessToken", accessToken);
         setUsername("");
         setPassword("");
         navigate("/register");
