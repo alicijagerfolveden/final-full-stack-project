@@ -1,4 +1,4 @@
-import { Box, Button, Grid, TextField } from "@mui/material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -8,13 +8,11 @@ export const LoginAdmin = () => {
   const { setAuth } = useContext(AuthContext);
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [errorMsg, setErrorMsg] = useState<string>("");
-  const [successMsg, setSuccessMsg] = useState<boolean>(false); //replace with navigation
+  const [errorMsg, setErrorMsg] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setErrorMsg("");
-    setSuccessMsg(false);
+    setErrorMsg(false);
   }, [username, password]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -28,20 +26,39 @@ export const LoginAdmin = () => {
         sessionStorage.setItem("token", token);
         setUsername("");
         setPassword("");
-        setSuccessMsg(true);
         navigate("/register");
       })
       .catch((err) => {
         console.log(err);
         if (err.response.status === 400) {
-          setErrorMsg("Login failed. Please check your credentials");
+          setErrorMsg(true);
         }
       });
   };
 
   return (
-    <Box>
-      {successMsg ? <p>Successfully logged in</p> : <p>{errorMsg}</p>}
+    <Box
+      sx={{
+        border: "1px solid black",
+        borderRadius: "10px",
+        width: "70%",
+        margin: "auto",
+      }}
+    >
+      <Typography
+        variant="h4"
+        textAlign="center"
+        sx={{
+          backgroundColor: "violet",
+          width: "98%",
+          margin: "10px 10px",
+          padding: "10px",
+          borderRadius: "10px",
+          boxSizing: "border-box",
+        }}
+      >
+        Login to use register to events system
+      </Typography>
 
       <Grid container justifyContent="center" marginTop={5} marginBottom={3}>
         <form onSubmit={handleSubmit}>
@@ -78,6 +95,21 @@ export const LoginAdmin = () => {
           </Grid>
         </form>
       </Grid>
+      {errorMsg ? (
+        <Typography
+          component="p"
+          sx={{
+            backgroundColor: "rgb(244, 164, 164)",
+            width: "98%",
+            margin: "10px 10px",
+            padding: "10px",
+            borderRadius: "10px",
+            boxSizing: "border-box",
+          }}
+        >
+          Login failed. Please check your credentials
+        </Typography>
+      ) : null}
     </Box>
   );
 };

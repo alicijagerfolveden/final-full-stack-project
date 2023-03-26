@@ -21,7 +21,7 @@ export const MainRouter = () => {
 
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route path="/login" element={<LoginAdmin />} />
+            <Route path="/" element={<LoginAdmin />} />
             <Route element={<RequireAuth />}>
               <Route path="/register" element={<Register />} />
               <Route path="/users" element={<RegisteredUsers />} />

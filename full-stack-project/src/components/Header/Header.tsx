@@ -14,29 +14,32 @@ export const Header = () => {
   };
 
   const handleSignInClick = () => {
-    navigate("/login");
+    navigate("/");
   };
 
   return (
-    <Box component="header" sx={{ borderBottom: "10px solid gray" }}>
+    <Box
+      component="header"
+      sx={{ borderBottom: "3px solid gray", marginBottom: "20px" }}
+    >
       <Grid container justifyContent="space-around" alignItems="center">
         <Grid item>
           <Box
             component="img"
             sx={{ maxHeight: "200px" }}
-            src="https://t4.ftcdn.net/jpg/01/34/81/83/360_F_134818360_o6AaEjnTewYEydXi8pdkgyOufTVUlJkP.jpg"
+            src="https://static.vecteezy.com/system/resources/thumbnails/000/552/753/small/fireworks_005.jpg"
             alt="event logo"
           />
         </Grid>
         <Grid item>
-          <Typography variant="h3" component="h1">
+          <Typography variant="h3" component="h1" fontFamily="cursive">
             Make your life happier
           </Typography>
         </Grid>
         <Grid item>
           {auth ? (
             <Button
-              variant="outlined"
+              variant="contained"
               color="secondary"
               sx={{ width: 200 }}
               onClick={handleSignOutClick}
@@ -45,7 +48,7 @@ export const Header = () => {
             </Button>
           ) : (
             <Button
-              variant="outlined"
+              variant="contained"
               color="secondary"
               sx={{ width: 200 }}
               onClick={handleSignInClick}
@@ -62,20 +65,18 @@ export const Header = () => {
         marginBottom={4}
         marginLeft={10}
         marginRight={10}
+        sx={{ borderTop: "3px solid gray", paddingTop: "29px" }}
       >
-        <Link to="/users" style={{ textDecoration: "none", fontSize: "large" }}>
+        <Link to="/users" style={{ textDecoration: "none", fontSize: "20px" }}>
           Users
         </Link>
         <Link
           to="/register"
-          style={{ textDecoration: "none", fontSize: "large" }}
+          style={{ textDecoration: "none", fontSize: "20px" }}
         >
           Register new user
         </Link>
-        <Link
-          to="/events"
-          style={{ textDecoration: "none", fontSize: "large" }}
-        >
+        <Link to="/events" style={{ textDecoration: "none", fontSize: "20px" }}>
           Events
         </Link>
       </Box>

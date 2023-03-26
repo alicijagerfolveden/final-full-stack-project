@@ -1,4 +1,11 @@
-import { Autocomplete, Box, Button, Grid, TextField } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  Button,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -14,7 +21,7 @@ export const Register = () => {
   const [event_id, setEvent_id] = useState<number>(0);
   const [selectedEventName, setSelectedEventName] = useState<string>("");
   const [successMsg, setSuccessMsg] = useState<boolean>(false);
-  const [errorMsg, setErrorMsg] = useState<string>("");
+  const [errorMsg, setErrorMsg] = useState<boolean>(false);
   const eventName = events.map((event: any) => event.name);
 
   const handleEventChange = (event: any, value: any) => {
@@ -47,7 +54,7 @@ export const Register = () => {
   };
 
   useEffect(() => {
-    setErrorMsg("");
+    setErrorMsg(false);
     setSuccessMsg(false);
   }, [name, surname, email, birthdate]);
 
@@ -89,13 +96,33 @@ export const Register = () => {
       })
       .catch((err) => {
         console.log(err);
-        setErrorMsg("Register failed. Please check data provided");
+        setErrorMsg(true);
       });
   };
 
   return (
-    <Box>
-      {successMsg ? <p>User was registered to the event</p> : <p>{errorMsg}</p>}
+    <Box
+      sx={{
+        border: "1px solid black",
+        borderRadius: "10px",
+        width: "70%",
+        margin: "auto",
+      }}
+    >
+      <Typography
+        variant="h4"
+        textAlign="center"
+        sx={{
+          backgroundColor: "violet",
+          width: "98%",
+          margin: "10px 10px",
+          padding: "10px",
+          borderRadius: "10px",
+          boxSizing: "border-box",
+        }}
+      >
+        Register user to event
+      </Typography>
       <Grid container justifyContent="center" marginTop={5} marginBottom={3}>
         <form onSubmit={handleSubmit}>
           <Grid item marginBottom={2}>
@@ -182,6 +209,38 @@ export const Register = () => {
           </Grid>
         </form>
       </Grid>
+
+      {successMsg ? (
+        <Typography
+          component="p"
+          sx={{
+            backgroundColor: "rgb(128, 218, 128)",
+            width: "98%",
+            margin: "10px 10px",
+            padding: "10px",
+            borderRadius: "10px",
+            boxSizing: "border-box",
+          }}
+        >
+          User was registered to the event
+        </Typography>
+      ) : null}
+
+      {errorMsg ? (
+        <Typography
+          component="p"
+          sx={{
+            backgroundColor: "rgb(244, 164, 164)",
+            width: "98%",
+            margin: "10px 10px",
+            padding: "10px",
+            borderRadius: "10px",
+            boxSizing: "border-box",
+          }}
+        >
+          Register failed. Please check data provided
+        </Typography>
+      ) : null}
     </Box>
   );
 };

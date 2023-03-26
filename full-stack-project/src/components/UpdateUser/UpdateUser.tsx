@@ -1,4 +1,4 @@
-import { Box, Button, Grid, TextField } from "@mui/material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -14,6 +14,8 @@ export const UpdateUser = () => {
   const [event_id, setEvent_id] = useState<number>(0);
   const { id } = useParams();
   const [usersEventName, setUsersEventName] = useState<string | undefined>("");
+  const [successMsg, setSuccessMsg] = useState<boolean>(false);
+  const [errorMsg, setErrorMsg] = useState<boolean>(false);
 
   const setStateValues = (user: any) => {
     setName(user[0].name);
@@ -23,6 +25,11 @@ export const UpdateUser = () => {
     setUsersEventName(user[0].event_name);
     setEvent_id(user[0].event_id);
   };
+
+  useEffect(() => {
+    setErrorMsg(false);
+    setSuccessMsg(false);
+  }, [name, surname, email, birthdate]);
 
   useEffect(() => {
     axios
@@ -73,15 +80,37 @@ export const UpdateUser = () => {
         }
       )
       .then((res) => {
-        console.log(res);
+        setSuccessMsg(true);
       })
       .catch((err) => {
         console.log(err);
+        setErrorMsg(true);
       });
   };
 
   return (
-    <Box>
+    <Box
+      sx={{
+        border: "1px solid black",
+        borderRadius: "10px",
+        width: "70%",
+        margin: "auto",
+      }}
+    >
+      <Typography
+        variant="h4"
+        textAlign="center"
+        sx={{
+          backgroundColor: "violet",
+          width: "98%",
+          margin: "10px 10px",
+          padding: "10px",
+          borderRadius: "10px",
+          boxSizing: "border-box",
+        }}
+      >
+        Update user data
+      </Typography>
       <Grid container justifyContent="center" marginTop={5} marginBottom={3}>
         <form onSubmit={handleSubmit}>
           <Grid item marginBottom={2}>
@@ -166,6 +195,37 @@ export const UpdateUser = () => {
           </Grid>
         </form>
       </Grid>
+      {successMsg ? (
+        <Typography
+          component="p"
+          sx={{
+            backgroundColor: "rgb(128, 218, 128)",
+            width: "98%",
+            margin: "10px 10px",
+            padding: "10px",
+            borderRadius: "10px",
+            boxSizing: "border-box",
+          }}
+        >
+          User was updated successfully.
+        </Typography>
+      ) : null}
+
+      {errorMsg ? (
+        <Typography
+          component="p"
+          sx={{
+            backgroundColor: "rgb(244, 164, 164)",
+            width: "98%",
+            margin: "10px 10px",
+            padding: "10px",
+            borderRadius: "10px",
+            boxSizing: "border-box",
+          }}
+        >
+          Cannot update user data. Please check data provided.
+        </Typography>
+      ) : null}
     </Box>
   );
 };
