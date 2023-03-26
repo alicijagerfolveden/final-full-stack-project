@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BrowserRouter } from "react-router-dom";
 import { MainRouter } from "./components";
 import { AuthContext } from "./components/AuthContext";
 
@@ -13,7 +14,9 @@ function App() {
   return (
     <main>
       <AuthContext.Provider value={{ auth, setAuth }}>
-        <MainRouter />
+        <BrowserRouter>
+          <MainRouter />
+        </BrowserRouter>
       </AuthContext.Provider>
     </main>
   );

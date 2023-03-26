@@ -1,5 +1,4 @@
-import { Button, Grid, Typography } from "@mui/material";
-import Box from "@mui/material/Box/Box";
+import { Button, Grid, Typography, Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getEvents } from "./getEvents";

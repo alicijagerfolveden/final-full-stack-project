@@ -11,7 +11,7 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { TUsers } from "../RegisteredUsers/types";
+import type { TUsers } from "../RegisteredUsers/types";
 
 export const EventUsers = () => {
   const [users, setUsers] = useState<TUsers[]>([]);
