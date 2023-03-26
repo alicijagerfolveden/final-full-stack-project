@@ -1,4 +1,4 @@
-import { Autocomplete, Box, Button, Grid, TextField } from "@mui/material";
+import { Box, Button, Grid, TextField } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -7,38 +7,21 @@ export const UpdateUser = () => {
   const [name, setName] = useState<string>("");
   const [surname, setSurname] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [birthdate, setBirthdate] = useState<Date | null>(new Date());
+  const [birthdate, setBirthdate] = useState<
+    string | number | readonly string[] | undefined
+  >("2023-04-01");
   const [age, setAge] = useState<number>(0);
-  const [user, setUser] = useState<string[]>([]);
-  const [events, setEvents] = useState<string[]>([]);
   const [event_id, setEvent_id] = useState<number>(0);
-  const eventName = events.map((event: any) => event.name);
   const { id } = useParams();
-
-  //   const [usersEventName, setUsersEventName] = useState<string | undefined>("");
-
-  //   const getUsersEvent = (user: any) => {
-  //     const usersEvent = events.find(
-  //       (event: any) => event.id === user[0].event_id
-  //     );
-
-  //     const getEventName = (value: any) => {
-  //       return value.name;
-  //     };
-
-  //     const usersEventName = getEventName(usersEvent);
-
-  //     if (usersEventName) {
-  //       setUsersEventName(usersEventName);
-  //     }
-  //   };
+  const [usersEventName, setUsersEventName] = useState<string | undefined>("");
 
   const setStateValues = (user: any) => {
     setName(user[0].name);
     setSurname(user[0].surname);
     setEmail(user[0].email);
     setBirthdate(user[0].birthdate.toLocaleString("en-US").split("T", 1));
-    // getUsersEvent(user);
+    setUsersEventName(user[0].event_name);
+    setEvent_id(user[0].event_id);
   };
 
   useEffect(() => {
@@ -51,40 +34,12 @@ export const UpdateUser = () => {
       .then((res) => {
         const fetchedUser = res.data;
 
-        setUser(fetchedUser);
-
         setStateValues(fetchedUser);
 
         ageCalc(fetchedUser[0].birthdate);
       })
       .catch((error) => console.error(error));
-
-    axios
-      .get("http://localhost:5000/events", {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-        },
-      })
-      .then((res) => {
-        const fetchedEvents = res.data;
-        setEvents(fetchedEvents);
-      })
-      .catch((error) => console.error(error));
   }, []);
-
-  const handleEventChange = (event: any, value: any) => {
-    const selectedEvent = events.find((event: any) => event.name === value);
-
-    const getEventId = (value: any) => {
-      return value.id;
-    };
-
-    const event_id = getEventId(selectedEvent);
-
-    if (event_id) {
-      setEvent_id(event_id);
-    }
-  };
 
   const ageCalc = (date: Date) => {
     const today = new Date();
@@ -109,6 +64,7 @@ export const UpdateUser = () => {
           email,
           birthdate,
           event_id,
+          event_name: usersEventName,
         },
         {
           headers: {
@@ -150,13 +106,11 @@ export const UpdateUser = () => {
           </Grid>
 
           <Grid item marginBottom={2}>
-            <Autocomplete
-              disablePortal
-              id="combo-box-demo"
-              options={eventName}
-              onChange={handleEventChange}
+            <TextField
+              disabled
+              label="Event"
+              value={usersEventName ?? ""}
               sx={{ width: 300 }}
-              renderInput={(params) => <TextField {...params} label="Events" />}
             />
           </Grid>
 
@@ -180,11 +134,11 @@ export const UpdateUser = () => {
               variant="outlined"
               inputProps={{
                 min: "1900-01-01",
-                max: new Date().toLocaleString("en-US").split("T", 1),
+                max: "2021-01-01",
               }}
-              value={birthdate?.toLocaleString().split("T")[0] ?? ""}
+              value={birthdate ?? ""}
               onChange={(e) => {
-                setBirthdate(new Date(e.target.value));
+                setBirthdate(e.target.value);
                 ageCalc(new Date(e.target.value));
               }}
             />

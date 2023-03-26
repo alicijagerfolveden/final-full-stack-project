@@ -38,6 +38,7 @@ export const Header = () => {
             <Button
               variant="outlined"
               color="secondary"
+              sx={{ width: 200 }}
               onClick={handleSignOutClick}
             >
               Sign out
@@ -46,6 +47,7 @@ export const Header = () => {
             <Button
               variant="outlined"
               color="secondary"
+              sx={{ width: 200 }}
               onClick={handleSignInClick}
             >
               Sign in

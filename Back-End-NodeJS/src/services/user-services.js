@@ -112,7 +112,9 @@ export const updateUser = async (req, res) => {
     userData.birthdate
   )}, event_name = ${mysql.escape(
     userData.event_name
-  )} WHERE id = ${mysql.escape(id)}`;
+  )}, event_id = ${mysql.escape(userData.event_id)} WHERE id = ${mysql.escape(
+    id
+  )}`;
 
   try {
     const con = await mysql.createConnection(mysqlConfig);

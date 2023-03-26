@@ -3,9 +3,7 @@ import { mysqlConfig } from "../../config.js";
 import { eventSchema } from "../models/Event.js";
 
 export const createEvent = async (req, res) => {
-  const { name, event_date } = req.body;
-
-  let eventData = { name, event_date };
+  let eventData = req.body;
 
   try {
     eventData = await eventSchema.validateAsync(eventData);
@@ -14,9 +12,10 @@ export const createEvent = async (req, res) => {
 
     return res.status(400).send({ error: "Incorrect event data" }).end();
   }
+
   const query = `INSERT INTO defaultdb.events (name, event_date) VALUES (${mysql.escape(
-    name
-  )}, ${mysql.escape(event_date)})`;
+    eventData.name
+  )}, ${mysql.escape(eventData.event_date)})`;
 
   try {
     const connection = await mysql.createConnection(mysqlConfig);

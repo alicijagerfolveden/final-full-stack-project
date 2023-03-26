@@ -6,7 +6,9 @@ export const Register = () => {
   const [name, setName] = useState<string>("");
   const [surname, setSurname] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [birthdate, setBirthdate] = useState<Date | null>(new Date());
+  const [birthdate, setBirthdate] = useState<
+    string | number | readonly string[] | undefined
+  >("2023-04-01");
   const [age, setAge] = useState<number>(0);
   const [events, setEvents] = useState<string[]>([]);
   const [event_id, setEvent_id] = useState<number>(0);
@@ -148,11 +150,11 @@ export const Register = () => {
               variant="outlined"
               inputProps={{
                 min: "1900-01-01",
-                max: new Date().toISOString().split("T")[0],
+                max: "2020-01-01",
               }}
-              value={birthdate?.toISOString().split("T")[0] ?? ""}
+              value={birthdate ?? ""}
               onChange={(e) => {
-                setBirthdate(new Date(e.target.value));
+                setBirthdate(e.target.value);
                 ageCalc(new Date(e.target.value));
               }}
             />

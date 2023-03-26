@@ -1,10 +1,12 @@
-import { Autocomplete, Box, Button, Grid, TextField } from "@mui/material";
+import { Box, Button, Grid, TextField } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 export const AddEvent = () => {
   const [name, setName] = useState<string>("");
-  const [date, setDate] = useState<Date | null>(new Date());
+  const [date, setDate] = useState<
+    string | number | readonly string[] | undefined
+  >("2023-04-01");
   const [successMsg, setSuccessMsg] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string>("");
 
@@ -65,8 +67,8 @@ export const AddEvent = () => {
                 min: "2021-01-01",
                 max: "2050-01-01",
               }}
-              value={date?.toISOString().split("T")[0] ?? ""}
-              onChange={(e) => setDate(new Date(e.target.value))}
+              value={date ?? ""}
+              onChange={(e) => setDate(e.target.value)}
             />
           </Grid>
 

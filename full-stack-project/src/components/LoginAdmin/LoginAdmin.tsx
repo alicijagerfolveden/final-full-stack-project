@@ -50,6 +50,7 @@ export const LoginAdmin = () => {
               label="Username"
               variant="outlined"
               required
+              sx={{ width: 250 }}
               value={username ?? ""}
               onChange={(e) => setUsername(e.target.value)}
             />
@@ -60,12 +61,18 @@ export const LoginAdmin = () => {
               variant="outlined"
               type="password"
               required
+              sx={{ width: 250 }}
               value={password ?? ""}
               onChange={(e) => setPassword(e.target.value)}
             />
           </Grid>
           <Grid item textAlign="center">
-            <Button variant="outlined" color="secondary" type="submit">
+            <Button
+              variant="outlined"
+              color="secondary"
+              type="submit"
+              sx={{ width: 250 }}
+            >
               Login
             </Button>
           </Grid>
