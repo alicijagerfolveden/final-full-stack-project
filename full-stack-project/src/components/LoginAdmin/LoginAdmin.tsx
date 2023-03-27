@@ -3,29 +3,40 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthContext";
+import { TLoginAdmin } from "./types";
 
 export const LoginAdmin = () => {
   const { setAuth } = useContext(AuthContext);
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [admin, setAdmin] = useState<TLoginAdmin>({
+    username: "",
+    password: "",
+  });
   const [errorMsg, setErrorMsg] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     setErrorMsg(false);
-  }, [username, password]);
+  }, [admin]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+
+    setAdmin({ ...admin, [e.target.name]: value });
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:5000/login-admin", { username, password })
+      .post("http://localhost:5000/login-admin", {
+        username: admin.username,
+        password: admin.password,
+      })
       .then((res) => {
         const accessToken = res.data.accessToken;
         setAuth(accessToken);
         sessionStorage.setItem("accessToken", accessToken);
-        setUsername("");
-        setPassword("");
+        setAdmin({ username: "", password: "" });
         navigate("/register");
       })
       .catch((err) => {
@@ -67,9 +78,10 @@ export const LoginAdmin = () => {
               label="Username"
               variant="outlined"
               required
+              name="username"
               sx={{ width: 250 }}
-              value={username ?? ""}
-              onChange={(e) => setUsername(e.target.value)}
+              value={admin.username}
+              onChange={handleChange}
             />
           </Grid>
           <Grid item marginBottom={2}>
@@ -77,10 +89,11 @@ export const LoginAdmin = () => {
               label="Password"
               variant="outlined"
               type="password"
+              name="password"
               required
               sx={{ width: 250 }}
-              value={password ?? ""}
-              onChange={(e) => setPassword(e.target.value)}
+              value={admin.password}
+              onChange={handleChange}
             />
           </Grid>
           <Grid item textAlign="center">
