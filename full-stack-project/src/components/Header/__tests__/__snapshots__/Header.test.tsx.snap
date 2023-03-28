@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header matches snapshot 1`] = `
+<header
+  className="MuiBox-root css-48t7i8"
+>
+  <div
+    className="MuiGrid-root MuiGrid-container css-iq4gde-MuiGrid-root"
+  >
+    <div
+      className="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+    >
+      <img
+        alt="event logo"
+        className="MuiBox-root css-1a7twpa"
+        src="https://static.vecteezy.com/system/resources/thumbnails/000/552/753/small/fireworks_005.jpg"
+      />
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+    >
+      <h1
+        className="MuiTypography-root MuiTypography-h3 css-whusbg-MuiTypography-root"
+      >
+        Make your life happier
+      </h1>
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+    >
+      <button
+        className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-sizeMedium MuiButton-containedSizeMedium css-w5oxbz-MuiButtonBase-root-MuiButton-root"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onContextMenu={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        type="button"
+      >
+        Sign in
+      </button>
+    </div>
+  </div>
+  <nav
+    className="MuiBox-root css-1qpb92y"
+  >
+    <a
+      aria-label="users link"
+      href="/users"
+      onClick={[Function]}
+      style={
+        Object {
+          "fontSize": "20px",
+          "textDecoration": "none",
+        }
+      }
+    >
+      Users
+    </a>
+    <a
+      aria-label="register new user link"
+      href="/register"
+      onClick={[Function]}
+      style={
+        Object {
+          "fontSize": "20px",
+          "textDecoration": "none",
+        }
+      }
+    >
+      Register new user
+    </a>
+    <a
+      aria-label="events link"
+      href="/events"
+      onClick={[Function]}
+      style={
+        Object {
+          "fontSize": "20px",
+          "textDecoration": "none",
+        }
+      }
+    >
+      Events
+    </a>
+  </nav>
+</header>
+`;
