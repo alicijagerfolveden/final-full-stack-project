@@ -15,7 +15,7 @@ export const Register = () => {
   const [email, setEmail] = useState<string>("");
   const [birthdate, setBirthdate] = useState<
     string | number | readonly string[] | undefined
-  >("2023-04-01");
+  >("2023-01-01");
   const [age, setAge] = useState<number>(0);
   const [events, setEvents] = useState<string[]>([]);
   const [event_id, setEvent_id] = useState<number>(0);
@@ -53,25 +53,6 @@ export const Register = () => {
     return age;
   };
 
-  useEffect(() => {
-    setErrorMsg(false);
-    setSuccessMsg(false);
-  }, [name, surname, email, birthdate]);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/events", {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      })
-      .then((res) => {
-        const fetchedEvents = res.data;
-        setEvents(fetchedEvents);
-      })
-      .catch((error) => console.error(error));
-  }, []);
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     axios
@@ -99,6 +80,25 @@ export const Register = () => {
         setErrorMsg(true);
       });
   };
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/events", {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+        const fetchedEvents = res.data;
+        setEvents(fetchedEvents);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  useEffect(() => {
+    setErrorMsg(false);
+    setSuccessMsg(false);
+  }, [name, surname, email, birthdate]);
 
   return (
     <Box

@@ -30,26 +30,6 @@ export const UpdateUser = () => {
     });
   };
 
-  useEffect(() => {
-    setErrorMsg(false);
-    setSuccessMsg(false);
-  }, [user]);
-
-  useEffect(() => {
-    axios
-      .get(`http://localhost:5000/users/${id}`, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      })
-      .then((res) => {
-        const fetchedUser = res.data;
-
-        setStateValues(fetchedUser);
-      })
-      .catch((error) => console.error(error));
-  }, [id]);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
 
@@ -75,7 +55,7 @@ export const UpdateUser = () => {
           },
         }
       )
-      .then((res) => {
+      .then(() => {
         setSuccessMsg(true);
       })
       .catch((err) => {
@@ -83,6 +63,26 @@ export const UpdateUser = () => {
         setErrorMsg(true);
       });
   };
+
+  useEffect(() => {
+    setErrorMsg(false);
+    setSuccessMsg(false);
+  }, [user]);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+        const fetchedUser = res.data;
+
+        setStateValues(fetchedUser);
+      })
+      .catch((error) => console.error(error));
+  }, [id]);
 
   return (
     <Box

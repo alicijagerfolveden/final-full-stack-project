@@ -6,6 +6,6 @@ export type TEvent = {
 
 export type TEvents = {
   id: number;
-  name: string | null;
-  event_date: string | null;
+  name: string;
+  event_date: string;
 };

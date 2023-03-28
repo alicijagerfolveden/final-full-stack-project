@@ -14,10 +14,6 @@ export const LoginAdmin = () => {
   const [errorMsg, setErrorMsg] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setErrorMsg(false);
-  }, [admin]);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
 
@@ -46,6 +42,10 @@ export const LoginAdmin = () => {
         }
       });
   };
+
+  useEffect(() => {
+    setErrorMsg(false);
+  }, [admin]);
 
   return (
     <Box

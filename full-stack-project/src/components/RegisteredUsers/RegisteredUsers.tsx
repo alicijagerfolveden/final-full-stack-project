@@ -8,6 +8,9 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -18,12 +21,9 @@ import { TUsers } from "./types";
 export const RegisteredUsers = () => {
   const [users, setUsers] = useState<TUsers[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [sortType, setSortType] = useState<string>("none");
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    getUsers(setUsers, setIsLoading);
-  }, []);
 
   const handleDeleteButton = (id: number) => {
     axios
@@ -44,6 +44,26 @@ export const RegisteredUsers = () => {
   const handleUpdateButton = (id: number) => {
     navigate(`/user/${id}`);
   };
+
+  useEffect(() => {
+    if (sortType === "name") {
+      const sortedByName = [...users].sort((a, b) =>
+        a.name > b.name ? 1 : -1
+      );
+      return setUsers(sortedByName);
+    }
+
+    if (sortType === "event") {
+      const sortedByDate = [...users].sort((a, b) =>
+        a.event_id > b.event_id ? 1 : -1
+      );
+      return setUsers(sortedByDate);
+    }
+
+    if (sortType === "none") {
+      return getUsers(setUsers, setIsLoading);
+    }
+  }, [sortType, users]);
 
   return (
     <Box
@@ -68,6 +88,19 @@ export const RegisteredUsers = () => {
       >
         List of Registered Users
       </Typography>
+      <InputLabel id="sorting">Sort By</InputLabel>
+      <Select
+        labelId="sorting"
+        label="Sort By"
+        variant="standard"
+        value={sortType}
+        onChange={(e) => setSortType(e.target.value)}
+        sx={{ width: "150px" }}
+      >
+        <MenuItem value="none">None</MenuItem>
+        <MenuItem value="name">Name</MenuItem>
+        <MenuItem value="event">Event</MenuItem>
+      </Select>
       <Grid
         display="grid"
         justifyContent="space-around"

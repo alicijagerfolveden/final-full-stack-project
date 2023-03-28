@@ -1,4 +1,12 @@
-import { Button, Grid, Typography, Box } from "@mui/material";
+import {
+  Button,
+  Grid,
+  Typography,
+  Box,
+  Select,
+  MenuItem,
+  InputLabel,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getEvents } from "./getEvents";
@@ -8,14 +16,31 @@ export const Events = () => {
   const [events, setEvents] = useState<TEvents[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const [sortType, setSortType] = useState<string>("none");
 
   const handleClick = (id: number) => {
     navigate(`/events/${id}`);
   };
 
   useEffect(() => {
-    getEvents(setEvents, setIsLoading);
-  }, []);
+    if (sortType === "name") {
+      const sortedByName = [...events].sort((a, b) =>
+        a.name > b.name ? 1 : -1
+      );
+      return setEvents(sortedByName);
+    }
+
+    if (sortType === "date") {
+      const sortedByDate = [...events].sort((a, b) =>
+        a.event_date > b.event_date ? 1 : -1
+      );
+      return setEvents(sortedByDate);
+    }
+
+    if (sortType === "none") {
+      return getEvents(setEvents, setIsLoading);
+    }
+  }, [sortType, events]);
 
   return (
     <Box
@@ -58,6 +83,19 @@ export const Events = () => {
         <h4 aria-label="loading-message">Loading...</h4>
       ) : (
         <Box>
+          <InputLabel id="sorting">Sort By</InputLabel>
+          <Select
+            labelId="sorting"
+            label="Sort By"
+            variant="standard"
+            value={sortType}
+            onChange={(e) => setSortType(e.target.value)}
+            sx={{ width: "150px" }}
+          >
+            <MenuItem value="none">None</MenuItem>
+            <MenuItem value="name">Name</MenuItem>
+            <MenuItem value="date">Date</MenuItem>
+          </Select>
           <Grid
             container
             alignItems="center"

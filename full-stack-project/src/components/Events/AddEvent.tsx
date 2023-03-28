@@ -10,11 +10,6 @@ export const AddEvent = () => {
   const [successMsg, setSuccessMsg] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<boolean>(false);
 
-  useEffect(() => {
-    setErrorMsg(false);
-    setSuccessMsg(false);
-  }, [name, date]);
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -39,6 +34,11 @@ export const AddEvent = () => {
         setErrorMsg(true);
       });
   };
+
+  useEffect(() => {
+    setErrorMsg(false);
+    setSuccessMsg(false);
+  }, [name, date]);
 
   return (
     <Box
