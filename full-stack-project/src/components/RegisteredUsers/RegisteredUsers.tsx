@@ -63,7 +63,11 @@ export const RegisteredUsers = () => {
     if (sortType === "none") {
       return getUsers(setUsers, setIsLoading);
     }
-  }, [sortType, users]);
+  }, [sortType]);
+
+  useEffect(() => {
+    getUsers(setUsers, setIsLoading);
+  }, []);
 
   return (
     <Box
