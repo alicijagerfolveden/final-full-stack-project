@@ -29,9 +29,7 @@ export const RegisteredUsers = () => {
     axios
       .delete(`http://localhost:5000/users/${id}`, {
         headers: {
-          AuTableCellorization: `Bearer ${sessionStorage.getItem(
-            "accessToken"
-          )}`,
+          Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
         },
       })
       .then(() => {

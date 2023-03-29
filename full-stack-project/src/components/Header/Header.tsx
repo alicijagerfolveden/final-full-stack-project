@@ -5,16 +5,11 @@ import { AuthContext } from "../AuthContext";
 
 export const Header = () => {
   const { auth, setAuth } = useContext(AuthContext);
-  const navigate = useNavigate();
 
   const handleSignOutClick = () => {
     setAuth("");
 
     sessionStorage.removeItem("accessToken");
-  };
-
-  const handleSignInClick = () => {
-    navigate("/");
   };
 
   return (
@@ -46,16 +41,7 @@ export const Header = () => {
             >
               Sign out
             </Button>
-          ) : (
-            <Button
-              variant="contained"
-              color="secondary"
-              sx={{ width: 200 }}
-              onClick={handleSignInClick}
-            >
-              Sign in
-            </Button>
-          )}
+          ) : null}
         </Grid>
       </Grid>
       <Box
