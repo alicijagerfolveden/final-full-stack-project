@@ -40,7 +40,11 @@ export const Events = () => {
     if (sortType === "none") {
       return getEvents(setEvents, setIsLoading);
     }
-  }, [sortType, events]);
+  }, [sortType]);
+
+  useEffect(() => {
+    getEvents(setEvents, setIsLoading);
+  }, []);
 
   return (
     <Box
