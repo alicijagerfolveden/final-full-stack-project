@@ -11,3 +11,5 @@ Login functionality: login form; logout button,
 Register new user form, list of users (CRUD), list of users of event.
 
 Add new event form, list of events.
+
+Backend NodeJS Express connected with MySQL DB. Routes for frontend.
